@@ -1,0 +1,648 @@
+<?xml version="1.0"?>
+<robot name="diffbot">
+ 
+  <!-- ========================================================= -->
+  <!-- materials -->
+  <!-- these are the colors used by the robot -->
+  <!-- ========================================================= -->
+ 
+  <material name="brown_body">
+    <color rgba="0.60 0.32 0.10 1.0"/>
+  </material>
+ 
+  <material name="black_wheel">
+    <color rgba="0.08 0.08 0.08 1.0"/>
+  </material>
+ 
+  <material name="grey">
+    <color rgba="0.55 0.55 0.55 1.0"/>
+  </material>
+ 
+ 
+  <!-- ========================================================= -->
+  <!-- main body -->
+  <!-- this is the base of the robot and everything attaches to it -->
+  <!-- ========================================================= -->
+ 
+  <link name="base_link">
+    <visual>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.42 0.34 0.24"/>
+      </geometry>
+      <material name="brown_body"/>
+    </visual>
+ 
+    <collision>
+      <origin xyz="0 0 0" rpy="0 0 0"/>
+      <geometry>
+        <box size="0.42 0.34 0.24"/>
+      </geometry>
+    </collision>
+ 
+    <inertial>
+      <mass value="2.5"/>
+      <inertia ixx="0.03" ixy="0" ixz="0"
+               iyy="0.03" iyz="0"
+               izz="0.04"/>
+    </inertial>
+  </link>
+ 
+ 
+  <!-- ========================================================= -->
+  <!-- wheels -->
+  <!-- all 4 wheels use the same size -->
+  <!-- ========================================================= -->
+ 
+  <link name="front_rwheel">
+    <visual>
+      <geometry>
+        <cylinder radius="0.08" length="0.06"/>
+      </geometry>
+      <material name="black_wheel"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.08" length="0.06"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.001083" ixy="0" ixz="0"
+               iyy="0.001083" iyz="0"
+               izz="0.0016"/>
+    </inertial>
+  </link>
+ 
+  <link name="front_lwheel">
+    <visual>
+      <geometry>
+        <cylinder radius="0.08" length="0.06"/>
+      </geometry>
+      <material name="black_wheel"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.08" length="0.06"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.001083" ixy="0" ixz="0"
+               iyy="0.001083" iyz="0"
+               izz="0.0016"/>
+    </inertial>
+  </link>
+ 
+  <link name="back_lwheel">
+    <visual>
+      <geometry>
+        <cylinder radius="0.08" length="0.06"/>
+      </geometry>
+      <material name="black_wheel"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.08" length="0.06"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.001083" ixy="0" ixz="0"
+               iyy="0.001083" iyz="0"
+               izz="0.0016"/>
+    </inertial>
+  </link>
+ 
+  <link name="back_rwheel">
+    <visual>
+      <geometry>
+        <cylinder radius="0.08" length="0.06"/>
+      </geometry>
+      <material name="black_wheel"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.08" length="0.06"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.5"/>
+      <inertia ixx="0.001083" ixy="0" ixz="0"
+               iyy="0.001083" iyz="0"
+               izz="0.0016"/>
+    </inertial>
+  </link>
+ 
+ 
+  <!-- ========================================================= -->
+  <!-- steering links -->
+  <!-- these small helper links let the front wheels steer -->
+  <!-- this is needed for ackermann steering -->
+  <!-- ========================================================= -->
+ 
+  <link name="front_right_steer_link">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0000067" ixy="0" ixz="0"
+               iyy="0.0000067" iyz="0"
+               izz="0.0000067"/>
+    </inertial>
+  </link>
+ 
+  <link name="front_left_steer_link">
+    <visual>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.02 0.02 0.02"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0000067" ixy="0" ixz="0"
+               iyy="0.0000067" iyz="0"
+               izz="0.0000067"/>
+    </inertial>
+  </link>
+ 
+ 
+  <!-- ========================================================= -->
+  <!-- neck -->
+  <!-- this connects the body to the head -->
+  <!-- ========================================================= -->
+ 
+  <link name="neck_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.035" length="0.18"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.035" length="0.18"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.2"/>
+      <inertia ixx="0.001" ixy="0" ixz="0"
+               iyy="0.001" iyz="0"
+               izz="0.0002"/>
+    </inertial>
+  </link>
+ 
+ 
+  <!-- ========================================================= -->
+  <!-- head -->
+  <!-- this is the main face box -->
+  <!-- ========================================================= -->
+ 
+  <link name="head_link">
+    <visual>
+      <geometry>
+        <box size="0.18 0.26 0.10"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <box size="0.18 0.26 0.10"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.4"/>
+      <inertia ixx="0.003" ixy="0" ixz="0"
+               iyy="0.002" iyz="0"
+               izz="0.003"/>
+    </inertial>
+  </link>
+ 
+ 
+  <!-- ========================================================= -->
+  <!-- eyes -->
+  <!-- these are just for the look of the robot -->
+  <!-- ========================================================= -->
+ 
+  <link name="left_eye_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.09"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.05" length="0.09"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0002" ixy="0" ixz="0"
+               iyy="0.0002" iyz="0"
+               izz="0.0002"/>
+    </inertial>
+  </link>
+ 
+  <link name="right_eye_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.05" length="0.09"/>
+      </geometry>
+      <material name="grey"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.05" length="0.09"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.1"/>
+      <inertia ixx="0.0002" ixy="0" ixz="0"
+               iyy="0.0002" iyz="0"
+               izz="0.0002"/>
+    </inertial>
+  </link>
+ 
+ 
+  <!-- ========================================================= -->
+  <!-- lidar -->
+  <!-- this sits in the middle between the two eyes -->
+  <!-- ========================================================= -->
+ 
+  <link name="lidar_link">
+    <visual>
+      <geometry>
+        <cylinder radius="0.03" length="0.05"/>
+      </geometry>
+      <material name="black_wheel"/>
+    </visual>
+    <collision>
+      <geometry>
+        <cylinder radius="0.03" length="0.05"/>
+      </geometry>
+    </collision>
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0"
+               iyy="0.0001" iyz="0"
+               izz="0.0001"/>
+    </inertial>
+  </link>
+ 
+ 
+  <!-- ========================================================= -->
+  <!-- joints -->
+  <!-- this section connects all the robot parts together -->
+  <!-- ========================================================= -->
+ 
+  <!-- front steering joints -->
+  <joint name="front_right_steer_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="front_right_steer_link"/>
+    <!-- front right: x forward, y negative because it is on the right -->
+    <origin xyz="0.16 -0.205 -0.13" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.6" upper="0.6" effort="10" velocity="1"/>
+  </joint>
+ 
+  <joint name="front_left_steer_joint" type="revolute">
+    <parent link="base_link"/>
+    <child link="front_left_steer_link"/>
+    <!-- front left: y positive because it is on the left -->
+    <origin xyz="0.16 0.205 -0.13" rpy="0 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit lower="-0.6" upper="0.6" effort="10" velocity="1"/>
+  </joint>
+ 
+  <!-- back wheels -->
+  <joint name="back_rwheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_rwheel"/>
+    <origin xyz="-0.16 -0.205 -0.13" rpy="-1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort = "10" velocity="10"/>
+  </joint>
+ 
+  <joint name="back_lwheel_joint" type="continuous">
+    <parent link="base_link"/>
+    <child link="back_lwheel"/>
+    <origin xyz="-0.16 0.205 -0.13" rpy="-1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort = "10" velocity="10"/>
+  </joint>
+ 
+  <!-- front wheels rotate after steering -->
+  <joint name="front_right_wheel_joint" type="continuous">
+    <parent link="front_right_steer_link"/>
+    <child link="front_rwheel"/>
+    <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort = "10" velocity="10"/>
+  </joint>
+ 
+  <joint name="front_left_wheel_joint" type="continuous">
+    <parent link="front_left_steer_link"/>
+    <child link="front_lwheel"/>
+    <origin xyz="0 0 0" rpy="-1.5708 0 0"/>
+    <axis xyz="0 0 1"/>
+    <limit effort = "10" velocity="10"/>
+  </joint>
+ 
+  <!-- neck joint -->
+  <joint name="neck_joint" type="fixed">
+    <parent link="base_link"/>
+    <child link="neck_link"/>
+    <origin xyz="0.09 0.0 0.21" rpy="0 0 0"/>
+  </joint>
+ 
+  <!-- head joint -->
+  <joint name="head_joint" type="fixed">
+    <parent link="neck_link"/>
+    <child link="head_link"/>
+    <origin xyz="0.0 0.0 0.14" rpy="0 0 0"/>
+  </joint>
+ 
+  <!-- eye joints -->
+  <joint name="left_eye_joint" type="fixed">
+    <parent link="head_link"/>
+    <child link="left_eye_link"/>
+    <origin xyz="0.06 0.085 0.0" rpy="0 1.5708 0"/>
+  </joint>
+ 
+  <joint name="right_eye_joint" type="fixed">
+    <parent link="head_link"/>
+    <child link="right_eye_link"/>
+    <origin xyz="0.06 -0.085 0.0" rpy="0 1.5708 0"/>
+  </joint>
+ 
+  <!-- lidar joint -->
+  <joint name="lidar_joint" type="fixed">
+    <parent link="head_link"/>
+    <child link="lidar_link"/>
+    <origin xyz="0.08 0.0 0.0" rpy="0 0 0"/>
+  </joint>
+ 
+  <!-- ========================================================= -->
+  <!-- wheel friction -->
+  <!-- this gives the wheels grip so the robot does not slide or sink -->
+  <!-- ========================================================= -->
+ 
+  <gazebo reference="front_rwheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+ 
+  <gazebo reference="front_lwheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+ 
+  <gazebo reference="back_rwheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+ 
+  <gazebo reference="back_lwheel">
+    <mu1>1.0</mu1>
+    <mu2>1.0</mu2>
+  </gazebo>
+ 
+ 
+  <!-- ========================================================= -->
+  <!-- gazebo colors -->
+  <!-- ========================================================= -->
+ 
+  <gazebo reference="base_link">
+    <material>Gazebo/Yellow</material>
+  </gazebo>
+ 
+  <gazebo reference="front_rwheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+ 
+  <gazebo reference="front_lwheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+ 
+  <gazebo reference="back_rwheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+ 
+  <gazebo reference="back_lwheel">
+    <material>Gazebo/Black</material>
+  </gazebo>
+ 
+  <gazebo reference="front_right_steer_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+ 
+  <gazebo reference="front_left_steer_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+ 
+  <gazebo reference="neck_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+ 
+  <gazebo reference="head_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+ 
+  <gazebo reference="left_eye_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+ 
+  <gazebo reference="right_eye_link">
+    <material>Gazebo/Grey</material>
+  </gazebo>
+ 
+  <gazebo reference="lidar_link">
+    <material>Gazebo/Black</material>
+  </gazebo>
+ 
+ 
+ 
+  <!-- ========================================================= -->
+  <!-- lidar plugin -->
+  <!-- front-only 60 degree lidar based on project requirement -->
+  <!-- ========================================================= -->
+ 
+ 
+  <!-- Lidar plugin-->
+ 
+  <gazebo reference="lidar_link">
+    <sensor type="ray" name="lidar_sensor">
+          <pose>0 0 0 0 0 0</pose>
+          <visualize>true</visualize>
+          <update_rate>20</update_rate>
+          <ray>
+              <scan>
+                  <horizontal>
+                      <samples>360</samples>
+                      <resolution>1</resolution>
+                      <min_angle>-0.5236</min_angle>
+                      <max_angle>0.5236</max_angle>
+                  </horizontal>
+              </scan>
+                  <range>
+                      <min>0.10</min>
+                      <max>30.0</max>
+                      <resolution>0.01</resolution>
+                  </range>      
+          </ray>
+          <plugin name="my_ray_sensor_plugin" filename="libgazebo_ros_ray_sensor.so">
+              <ros>
+            <!-- Remap to publish to /diffbot/scan -->            
+                  <remapping>~/out:=scan</remapping>
+              </ros>
+            <!-- Output as a LaserScan  -->
+                <output_type>sensor_msgs/LaserScan</output_type>
+            <!-- Clip intensity values so all are above 100, optional -->
+              <min_intensity>100.0</min_intensity>  
+            <!-- Frame id for header of output, defaults to sensor's parent link name -->
+              <frame_name>lidar_link</frame_name>
+          </plugin>
+      </sensor>    
+  </gazebo>  
+ 
+ 
+ 
+  <!-- ========================================================= -->
+  <!-- ackermann drive plugin -->
+  <!-- this plugin makes the robot move like a car -->
+  <!-- ========================================================= -->
+  <gazebo>
+    <plugin name="gazebo_ros_ackermann_drive" filename="libgazebo_ros_ackermann_drive.so">
+  
+      <ros>
+      </ros>
+  
+      <update_rate>20.0</update_rate>
+  
+      <!-- wheel spin joints -->
+      <front_left_joint>front_left_wheel_joint</front_left_joint>
+      <front_right_joint>front_right_wheel_joint</front_right_joint>
+      <rear_left_joint>back_lwheel_joint</rear_left_joint>
+      <rear_right_joint>back_rwheel_joint</rear_right_joint>
+  
+      <!-- steering joints -->
+      <left_steering_joint>front_left_steer_joint</left_steering_joint>
+      <right_steering_joint>front_right_steer_joint</right_steering_joint>
+  
+      <!-- safer limits for small robot -->
+      <max_steer>0.4</max_steer>
+      <max_steering_angle>7.85</max_steering_angle>
+      <max_speed>1.5</max_speed>
+  
+      <!-- much softer PID gains -->
+      <left_steering_pid_gain>5 0 0.1</left_steering_pid_gain>
+      <left_steering_i_range>0 0</left_steering_i_range>
+  
+      <right_steering_pid_gain>5 0 0.1</right_steering_pid_gain>
+      <right_steering_i_range>0 0</right_steering_i_range>
+  
+      <linear_velocity_pid_gain>2 0 0.1</linear_velocity_pid_gain>
+      <linear_velocity_i_range>0 0</linear_velocity_i_range>
+  
+      <!-- do not let plugin fight robot_state_publisher for wheel TFs -->
+      <publish_odom>true</publish_odom>
+      <publish_odom_tf>true</publish_odom_tf>
+      <publish_wheel_tf>false</publish_wheel_tf>
+      <publish_distance>true</publish_distance>
+  
+      <odometry_frame>odom</odometry_frame>
+      <robot_base_frame>base_link</robot_base_frame>
+  
+    </plugin>
+  </gazebo>
+ 
+  <!-- ========================================================= -->
+  <!-- camera link -->
+  <!-- this camera is used to capture the obstacle image -->
+  <!-- ========================================================= -->
+ 
+  <link name="camera_link">
+    <visual>
+      <geometry>
+        <box size="0.04 0.08 0.04"/>
+      </geometry>
+      <material name="black_wheel"/>
+    </visual>
+ 
+    <collision>
+      <geometry>
+        <box size="0.04 0.08 0.04"/>
+      </geometry>
+    </collision>
+ 
+    <inertial>
+      <mass value="0.05"/>
+      <inertia ixx="0.0001" ixy="0" ixz="0"
+               iyy="0.0001" iyz="0"
+               izz="0.0001"/>
+    </inertial>
+  </link>
+ 
+  <joint name="camera_joint" type="fixed">
+    <parent link="head_link"/>
+    <child link="camera_link"/>
+    <origin xyz="0.10 0.0 0.03" rpy="0 0 0"/>
+  </joint>
+ 
+  <gazebo reference="camera_link">
+    <sensor name="camera_sensor" type="camera">
+      <always_on>true</always_on>
+      <update_rate>10</update_rate>
+      <visualize>true</visualize>
+ 
+      <camera>
+        <horizontal_fov>1.047</horizontal_fov>
+        <image>
+          <width>640</width>
+          <height>480</height>
+          <format>R8G8B8</format>
+        </image>
+        <clip>
+          <near>0.1</near>
+          <far>10.0</far>
+        </clip>
+      </camera>
+  <!-- camera plugin -->
+      <plugin name="camera_controller" filename="libgazebo_ros_camera.so">
+ 
+        <ros>
+          <remapping>image_raw:=/camera/image_raw</remapping>
+          <remapping>camera_info:=/camera/camera_info</remapping>
+        </ros>
+ 
+        <!-- Set camera name -->
+        <camera_name>camera</camera_name>
+ 
+        <!-- Set TF frame name -->
+        <frame_name>camera_link</frame_name>
+ 
+        <hack_baseline>0.07</hack_baseline>
+ 
+      </plugin>
+    </sensor>
+  </gazebo>
+ 
+ 
+</robot>
+
